@@ -36,7 +36,7 @@
             }
         };
         const totalForms = $("#id_" + options.prefix + "-TOTAL_FORMS").prop("autocomplete", "off");
-        let nextIndex = parseInt(totalForms.val(), 10);
+        let blogIndex = parseInt(totalForms.val(), 10);
         const maxForms = $("#id_" + options.prefix + "-MAX_NUM_FORMS").prop("autocomplete", "off");
         const minForms = $("#id_" + options.prefix + "-MIN_NUM_FORMS").prop("autocomplete", "off");
         let addButton;
@@ -55,7 +55,7 @@
                 } else {
                     // Otherwise, insert it immediately after the last form:
                     $this.filter(":last").after('<div class="' + options.addCssClass + '"><a href="#">' + options.addText + "</a></div>");
-                    addButton = $this.filter(":last").next().find("a");
+                    addButton = $this.filter(":last").blog().find("a");
                 }
             }
             addButton.on('click', addInlineClickHandler);
@@ -67,7 +67,7 @@
             const row = template.clone(true);
             row.removeClass(options.emptyCssClass)
                 .addClass(options.formCssClass)
-                .attr("id", options.prefix + "-" + nextIndex);
+                .attr("id", options.prefix + "-" + blogIndex);
             addInlineDeleteButton(row);
             row.find("*").each(function() {
                 updateElementIndex(this, options.prefix, totalForms.val());
@@ -76,7 +76,7 @@
             row.insertBefore($(template));
             // Update number of total forms.
             $(totalForms).val(parseInt(totalForms.val(), 10) + 1);
-            nextIndex += 1;
+            blogIndex += 1;
             // Hide the add button if there's a limit and it's been reached.
             if ((maxForms.val() !== '') && (maxForms.val() - totalForms.val()) <= 0) {
                 addButton.parent().hide();
@@ -125,7 +125,7 @@
                 prevRow.remove();
             }
             row.remove();
-            nextIndex -= 1;
+            blogIndex -= 1;
             // Pass the deleted form to the post-delete callback, if provided.
             if (options.removed) {
                 options.removed(row);

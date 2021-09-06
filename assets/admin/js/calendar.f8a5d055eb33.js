@@ -197,7 +197,7 @@ depends on core.js for utility functions like removeChildren or quickElement
             }
             this.drawCurrent();
         },
-        drawNextMonth: function() {
+        drawblogMonth: function() {
             if (this.currentMonth === 12) {
                 this.currentMonth = 1;
                 this.currentYear++;
@@ -211,7 +211,7 @@ depends on core.js for utility functions like removeChildren or quickElement
             this.currentYear--;
             this.drawCurrent();
         },
-        drawNextYear: function() {
+        drawblogYear: function() {
             this.currentYear++;
             this.drawCurrent();
         }

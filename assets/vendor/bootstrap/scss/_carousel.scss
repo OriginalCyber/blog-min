@@ -8,7 +8,7 @@
 // 3. .active.carousel-item is the current slide.
 // 4. .active.carousel-item-left and .active.carousel-item-right is the current
 //    slide in its in-transition state. Only one of these occurs at a time.
-// 5. .carousel-item-next.carousel-item-left and .carousel-item-prev.carousel-item-right
+// 5. .carousel-item-blog.carousel-item-left and .carousel-item-prev.carousel-item-right
 //    is the upcoming slide in transition.
 
 .carousel {
@@ -37,12 +37,12 @@
 }
 
 .carousel-item.active,
-.carousel-item-next,
+.carousel-item-blog,
 .carousel-item-prev {
   display: block;
 }
 
-.carousel-item-next:not(.carousel-item-left),
+.carousel-item-blog:not(.carousel-item-left),
 .active.carousel-item-right {
   transform: translateX(100%);
 }
@@ -65,7 +65,7 @@
   }
 
   .carousel-item.active,
-  .carousel-item-next.carousel-item-left,
+  .carousel-item-blog.carousel-item-left,
   .carousel-item-prev.carousel-item-right {
     z-index: 1;
     opacity: 1;
@@ -85,7 +85,7 @@
 //
 
 .carousel-control-prev,
-.carousel-control-next {
+.carousel-control-blog {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -114,7 +114,7 @@
     background-image: linear-gradient(90deg, rgba($black, .25), rgba($black, .001));
   }
 }
-.carousel-control-next {
+.carousel-control-blog {
   right: 0;
   @if $enable-gradients {
     background-image: linear-gradient(270deg, rgba($black, .25), rgba($black, .001));
@@ -123,7 +123,7 @@
 
 // Icons for within
 .carousel-control-prev-icon,
-.carousel-control-next-icon {
+.carousel-control-blog-icon {
   display: inline-block;
   width: $carousel-control-icon-width;
   height: $carousel-control-icon-width;
@@ -132,8 +132,8 @@
 .carousel-control-prev-icon {
   background-image: escape-svg($carousel-control-prev-icon-bg);
 }
-.carousel-control-next-icon {
-  background-image: escape-svg($carousel-control-next-icon-bg);
+.carousel-control-blog-icon {
+  background-image: escape-svg($carousel-control-blog-icon-bg);
 }
 
 

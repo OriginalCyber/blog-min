@@ -670,9 +670,9 @@
 		
 		/**
 		 * Change the pagination - provides the internal logic for pagination in a simple API
-		 * function. With this function you can have a DataTables table go to the next,
+		 * function. With this function you can have a DataTables table go to the blog,
 		 * previous, first or last pages.
-		 *  @param {string|int} mAction Paging action to take: "first", "previous", "next" or "last"
+		 *  @param {string|int} mAction Paging action to take: "first", "previous", "blog" or "last"
 		 *    or page number to jump to (integer), note that page 0 is the first page.
 		 *  @param {bool} [bRedraw=true] Redraw the table or not
 		 *  @dtopt API
@@ -681,7 +681,7 @@
 		 *  @example
 		 *    $(document).ready(function() {
 		 *      var oTable = $('#example').dataTable();
-		 *      oTable.fnPageChange( 'next' );
+		 *      oTable.fnPageChange( 'blog' );
 		 *    } );
 		 */
 		this.fnPageChange = function ( mAction, bRedraw )
@@ -862,7 +862,7 @@
 		// Extend with old style plug-in API methods
 		for ( var fn in DataTable.ext.internal ) {
 			if ( fn ) {
-				this[fn] = _fnExternApiFunc(fn);
+				this[fn] = _fblogernApiFunc(fn);
 			}
 		}
 
@@ -871,7 +871,7 @@
 			// object that can be bashed around
 			var o = {};
 			var oInit = len > 1 ? // optimisation for single table case
-				_fnExtend( o, options, true ) :
+				_fblogend( o, options, true ) :
 				options;
 
 			/*global oInit,_that,emptyInit*/
@@ -981,7 +981,7 @@
 			
 			// Apply the defaults and init options to make a single init object will all
 			// options defined from defaults and instance options.
-			oInit = _fnExtend( $.extend( true, {}, defaults ), oInit );
+			oInit = _fblogend( $.extend( true, {}, defaults ), oInit );
 			
 			
 			// Map the initialisation options onto the settings object
@@ -2645,7 +2645,7 @@
 			      mSource.indexOf('[') !== -1 || mSource.indexOf('(') !== -1) )
 		{
 			/* If there is a . in the source string then the data source is in a
-			 * nested object so we loop over the data for each level to get the next
+			 * nested object so we loop over the data for each level to get the blog
 			 * level down. On each loop we test for undefined, and if found immediately
 			 * return. This allows entire objects to be missing and sDefaultContent to
 			 * be used if defined, rather than throwing an error
@@ -2910,7 +2910,7 @@
 	
 	/**
 	 * Mark cached data as invalid such that a re-read of the data will occur when
-	 * the cached data is next requested. Also update from the data source object.
+	 * the cached data is blog requested. Also update from the data source object.
 	 *
 	 * @param {object} settings DataTables settings object
 	 * @param {int}    rowIdx   Row index to invalidate
@@ -3073,7 +3073,7 @@
 					tds.push( td );
 				}
 	
-				td = td.nextSibling;
+				td = td.blogSibling;
 			}
 		}
 		else {
@@ -3610,11 +3610,11 @@
 	
 		oSettings.nHolding = holding[0];
 		oSettings.nTableWrapper = insert[0];
-		oSettings.nTableReinsertBefore = oSettings.nTable.nextSibling;
+		oSettings.nTableReinsertBefore = oSettings.nTable.blogSibling;
 	
 		/* Loop over the user set positioning and place the elements as needed */
 		var aDom = oSettings.sDom.split('');
-		var featureNode, cOption, nNewNode, cNext, sAttr, j;
+		var featureNode, cOption, nNewNode, cblog, sAttr, j;
 		for ( var i=0 ; i<aDom.length ; i++ )
 		{
 			featureNode = null;
@@ -3626,12 +3626,12 @@
 				nNewNode = $('<div/>')[0];
 	
 				/* Check to see if we should append an id and/or a class name to the container */
-				cNext = aDom[i+1];
-				if ( cNext == "'" || cNext == '"' )
+				cblog = aDom[i+1];
+				if ( cblog == "'" || cblog == '"' )
 				{
 					sAttr = "";
 					j = 2;
-					while ( aDom[i+j] != cNext )
+					while ( aDom[i+j] != cblog )
 					{
 						sAttr += aDom[i+j];
 						j++;
@@ -3812,7 +3812,7 @@
 						}
 					}
 				}
-				nCell = nCell.nextSibling;
+				nCell = nCell.blogSibling;
 			}
 		}
 	}
@@ -3984,7 +3984,7 @@
 			// Object to extend the base settings
 			oSettings.jqXHR = $.ajax( $.extend( baseAjax, ajax ) );
 	
-			// Restore for next time around
+			// Restore for blog time around
 			ajax.data = ajaxData;
 		}
 	}
@@ -4971,7 +4971,7 @@
 	 * Alter the display settings to change the page
 	 *  @param {object} settings DataTables settings object
 	 *  @param {string|int} action Paging action to take: "first", "previous",
-	 *    "next" or "last" or page number to jump to (integer)
+	 *    "blog" or "last" or page number to jump to (integer)
 	 *  @param [bool] redraw Automatically draw the update or not
 	 *  @returns {bool} true page has changed, false - no change
 	 *  @memberof DataTable#oApi
@@ -5011,7 +5011,7 @@
 			  start = 0;
 			}
 		}
-		else if ( action == "next" )
+		else if ( action == "blog" )
 		{
 			if ( start + len < records )
 			{
@@ -5373,7 +5373,7 @@
 		// Apply all styles in one pass
 		_fnApplyToChildren( zeroOut, headerSrcEls );
 	
-		// Read all widths in next pass
+		// Read all widths in blog pass
 		_fnApplyToChildren( function(nSizer) {
 			headerContent.push( nSizer.innerHTML );
 			headerWidths.push( _fnStringToCss( $(nSizer).css('width') ) );
@@ -5543,8 +5543,8 @@
 					index++;
 				}
 	
-				nNode1 = nNode1.nextSibling;
-				nNode2 = an2 ? nNode2.nextSibling : null;
+				nNode1 = nNode1.blogSibling;
+				nNode2 = an2 ? nNode2.blogSibling : null;
 			}
 	
 			i++;
@@ -6018,7 +6018,7 @@
 			 *    return oSort['numeric-asc']( aiOrig[a], aiOrig[b] );
 			 *  }
 			 * Basically we have a test for each sorting column, if the data in that column is equal,
-			 * test the next column. If all columns match, then we use a numeric sort on the row
+			 * test the blog column. If all columns match, then we use a numeric sort on the row
 			 * positions in the original data array to provide a stable sort.
 			 *
 			 * Note - I know it seems excessive to have two sorting methods, but the first is around
@@ -6090,7 +6090,7 @@
 	function _fnSortAria ( settings )
 	{
 		var label;
-		var nextSort;
+		var blogSort;
 		var columns = settings.aoColumns;
 		var aSort = _fnSortFlatten( settings );
 		var oAria = settings.oLanguage.oAria;
@@ -6112,13 +6112,13 @@
 			if ( col.bSortable ) {
 				if ( aSort.length > 0 && aSort[0].col == i ) {
 					th.setAttribute('aria-sort', aSort[0].dir=="asc" ? "ascending" : "descending" );
-					nextSort = asSorting[ aSort[0].index+1 ] || asSorting[0];
+					blogSort = asSorting[ aSort[0].index+1 ] || asSorting[0];
 				}
 				else {
-					nextSort = asSorting[0];
+					blogSort = asSorting[0];
 				}
 	
-				label = sTitle + ( nextSort === "asc" ?
+				label = sTitle + ( blogSort === "asc" ?
 					oAria.sSortAscending :
 					oAria.sSortDescending
 				);
@@ -6147,8 +6147,8 @@
 		var col = settings.aoColumns[ colIdx ];
 		var sorting = settings.aaSorting;
 		var asSorting = col.asSorting;
-		var nextSortIdx;
-		var next = function ( a, overflow ) {
+		var blogSortIdx;
+		var blog = function ( a, overflow ) {
 			var idx = a._idx;
 			if ( idx === undefined ) {
 				idx = $.inArray( a[1], asSorting );
@@ -6173,18 +6173,18 @@
 	
 			if ( sortIdx !== -1 ) {
 				// Yes, modify the sort
-				nextSortIdx = next( sorting[sortIdx], true );
+				blogSortIdx = blog( sorting[sortIdx], true );
 	
-				if ( nextSortIdx === null && sorting.length === 1 ) {
-					nextSortIdx = 0; // can't remove sorting completely
+				if ( blogSortIdx === null && sorting.length === 1 ) {
+					blogSortIdx = 0; // can't remove sorting completely
 				}
 	
-				if ( nextSortIdx === null ) {
+				if ( blogSortIdx === null ) {
 					sorting.splice( sortIdx, 1 );
 				}
 				else {
-					sorting[sortIdx][1] = asSorting[ nextSortIdx ];
-					sorting[sortIdx]._idx = nextSortIdx;
+					sorting[sortIdx][1] = asSorting[ blogSortIdx ];
+					sorting[sortIdx]._idx = blogSortIdx;
 				}
 			}
 			else {
@@ -6195,11 +6195,11 @@
 		}
 		else if ( sorting.length && sorting[0][0] == colIdx ) {
 			// Single column - already sorting on this column, modify the sort
-			nextSortIdx = next( sorting[0] );
+			blogSortIdx = blog( sorting[0] );
 	
 			sorting.length = 1;
-			sorting[0][1] = asSorting[ nextSortIdx ];
-			sorting[0]._idx = nextSortIdx;
+			sorting[0][1] = asSorting[ blogSortIdx ];
+			sorting[0]._idx = blogSortIdx;
 		}
 		else {
 			// Single column - sort only on this column
@@ -6582,7 +6582,7 @@
 	 *  @memberof DataTable#oApi
 	 *  @todo This doesn't take account of arrays inside the deep copied objects.
 	 */
-	function _fnExtend( out, extender, breakRefs )
+	function _fblogend( out, extender, breakRefs )
 	{
 		var val;
 	
@@ -7521,7 +7521,7 @@
 	 *  * `integer` - The page index to jump to
 	 *  * `string` - An action to take:
 	 *    * `first` - Jump to first page.
-	 *    * `next` - Jump to the next page
+	 *    * `blog` - Jump to the blog page
 	 *    * `previous` - Jump to previous page
 	 *    * `last` - Jump to the last page.
 	 * @returns {DataTables.Api} this
@@ -9735,7 +9735,7 @@
 		 * Define the sorting directions that are applied to the column, in sequence
 		 * as the column is repeatedly sorted upon - i.e. the first value is used
 		 * as the sorting direction when the column if first sorted (clicked on).
-		 * Sort it again (click again) and it will move on to the next index.
+		 * Sort it again (click again) and it will move on to the blog index.
 		 * Repeat until loop.
 		 *  @type array
 		 */
@@ -11443,26 +11443,26 @@
 	
 	
 				/**
-				 * Text to use for the 'next' pagination button (to take the user to the
-				 * next page).
+				 * Text to use for the 'blog' pagination button (to take the user to the
+				 * blog page).
 				 *  @type string
-				 *  @default Next
+				 *  @default blog
 				 *
 				 *  @dtopt Language
-				 *  @name DataTable.defaults.language.paginate.next
+				 *  @name DataTable.defaults.language.paginate.blog
 				 *
 				 *  @example
 				 *    $(document).ready( function() {
 				 *      $('#example').dataTable( {
 				 *        "language": {
 				 *          "paginate": {
-				 *            "next": "Next page"
+				 *            "blog": "blog page"
 				 *          }
 				 *        }
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "Next",
+				"sblog": "blog",
 	
 	
 				/**
@@ -11986,10 +11986,10 @@
 		 * display for pagination control:
 		 *
 		 * * `numbers` - Page number buttons only
-		 * * `simple` - 'Previous' and 'Next' buttons only
-		 * * 'simple_numbers` - 'Previous' and 'Next' buttons, plus page numbers
-		 * * `full` - 'First', 'Previous', 'Next' and 'Last' buttons
-		 * * `full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
+		 * * `simple` - 'Previous' and 'blog' buttons only
+		 * * 'simple_numbers` - 'Previous' and 'blog' buttons, plus page numbers
+		 * * `full` - 'First', 'Previous', 'blog' and 'Last' buttons
+		 * * `full_numbers` - 'First', 'Previous', 'blog' and 'Last' buttons, plus page numbers
 		 * * `first_last_numbers` - 'First' and 'Last' buttons, plus page numbers
 		 *  
 		 * Further methods can be added using {@link DataTable.ext.oPagination}.
@@ -14162,7 +14162,7 @@
 		 * * `first` - Jump to first page when activated
 		 * * `last` - Jump to last page when activated
 		 * * `previous` - Show previous page when activated
-		 * * `next` - Show next page when activated
+		 * * `blog` - Show blog page when activated
 		 * * `{int}` - Show page of the index given
 		 * * `{array}` - A nested array containing the above elements to add a
 		 *   containing 'DIV' element (might be useful for styling).
@@ -14177,9 +14177,9 @@
 		 *  @default {}
 		 *
 		 *  @example
-		 *    // Show previous, next and current page buttons only
+		 *    // Show previous, blog and current page buttons only
 		 *    $.fn.dataTableExt.oPagination.current = function ( page, pages ) {
-		 *      return [ 'previous', page, 'next' ];
+		 *      return [ 'previous', page, 'blog' ];
 		 *    };
 		 */
 		pager: {},
@@ -14560,11 +14560,11 @@
 	
 	$.extend( extPagination, {
 		simple: function ( page, pages ) {
-			return [ 'previous', 'next' ];
+			return [ 'previous', 'blog' ];
 		},
 	
 		full: function ( page, pages ) {
-			return [  'first', 'previous', 'next', 'last' ];
+			return [  'first', 'previous', 'blog', 'last' ];
 		},
 	
 		numbers: function ( page, pages ) {
@@ -14572,11 +14572,11 @@
 		},
 	
 		simple_numbers: function ( page, pages ) {
-			return [ 'previous', _numbers(page, pages), 'next' ];
+			return [ 'previous', _numbers(page, pages), 'blog' ];
 		},
 	
 		full_numbers: function ( page, pages ) {
-			return [ 'first', 'previous', _numbers(page, pages), 'next', 'last' ];
+			return [ 'first', 'previous', _numbers(page, pages), 'blog', 'last' ];
 		},
 		
 		first_last_numbers: function (page, pages) {
@@ -14642,8 +14642,8 @@
 									}
 									break;
 	
-								case 'next':
-									btnDisplay = lang.sNext;
+								case 'blog':
+									btnDisplay = lang.sblog;
 	
 									if ( pages === 0 || page === pages-1 ) {
 										tabIndex = -1;
@@ -15084,7 +15084,7 @@
 	 *  @returns {function} wrapped function
 	 *  @memberof DataTable#internal
 	 */
-	function _fnExternApiFunc (fn)
+	function _fblogernApiFunc (fn)
 	{
 		return function() {
 			var args = [_fnSettingsFromNode( this[DataTable.ext.iApiIndex] )].concat(
@@ -15103,7 +15103,7 @@
 	 *  @namespace
 	 */
 	$.extend( DataTable.ext.internal, {
-		_fnExternApiFunc: _fnExternApiFunc,
+		_fblogernApiFunc: _fblogernApiFunc,
 		_fnBuildAjax: _fnBuildAjax,
 		_fnAjaxUpdate: _fnAjaxUpdate,
 		_fnAjaxParameters: _fnAjaxParameters,
@@ -15191,7 +15191,7 @@
 		_fnRenderer: _fnRenderer,
 		_fnDataSource: _fnDataSource,
 		_fnRowAttributes: _fnRowAttributes,
-		_fnExtend: _fnExtend,
+		_fblogend: _fblogend,
 		_fnCalculateEnd: function () {} // Used by a lot of plug-ins, but redundant
 		                                // in 1.10, so this dead-end function is
 		                                // added to prevent errors

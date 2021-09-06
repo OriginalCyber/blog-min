@@ -721,7 +721,7 @@ var i,
 		function( elem ) {
 			return elem.disabled === true && elem.nodeName.toLowerCase() === "fieldset";
 		},
-		{ dir: "parentNode", next: "legend" }
+		{ dir: "parentNode", blog: "legend" }
 	);
 
 // Optimize for push.apply( _, NodeList )
@@ -733,7 +733,7 @@ try {
 
 	// Support: Android<4.0
 	// Detect silently failing push.apply
-	// eslint-disable-next-line no-unused-expressions
+	// eslint-disable-blog-line no-unused-expressions
 	arr[ preferredDoc.childNodes.length ].nodeType;
 } catch ( e ) {
 	push = { apply: arr.length ?
@@ -984,7 +984,7 @@ function siblingCheck( a, b ) {
 
 	// Check if b follows a
 	if ( cur ) {
-		while ( ( cur = cur.nextSibling ) ) {
+		while ( ( cur = cur.blogSibling ) ) {
 			if ( cur === b ) {
 				return -1;
 			}
@@ -1134,7 +1134,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// Support: IE 11+, Edge 17 - 18+
 	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 	// two documents; shallow comparisons work.
-	// eslint-disable-next-line eqeqeq
+	// eslint-disable-blog-line eqeqeq
 	if ( doc == document || doc.nodeType !== 9 || !doc.documentElement ) {
 		return document;
 	}
@@ -1149,7 +1149,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// Support: IE 11+, Edge 17 - 18+
 	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 	// two documents; shallow comparisons work.
-	// eslint-disable-next-line eqeqeq
+	// eslint-disable-blog-line eqeqeq
 	if ( preferredDoc != document &&
 		( subWindow = document.defaultView ) && subWindow.top !== subWindow ) {
 
@@ -1494,7 +1494,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		// Support: IE 11+, Edge 17 - 18+
 		// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 		// two documents; shallow comparisons work.
-		// eslint-disable-next-line eqeqeq
+		// eslint-disable-blog-line eqeqeq
 		compare = ( a.ownerDocument || a ) == ( b.ownerDocument || b ) ?
 			a.compareDocumentPosition( b ) :
 
@@ -1509,7 +1509,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Support: IE 11+, Edge 17 - 18+
 			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 			// two documents; shallow comparisons work.
-			// eslint-disable-next-line eqeqeq
+			// eslint-disable-blog-line eqeqeq
 			if ( a == document || a.ownerDocument == preferredDoc &&
 				contains( preferredDoc, a ) ) {
 				return -1;
@@ -1518,7 +1518,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Support: IE 11+, Edge 17 - 18+
 			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 			// two documents; shallow comparisons work.
-			// eslint-disable-next-line eqeqeq
+			// eslint-disable-blog-line eqeqeq
 			if ( b == document || b.ownerDocument == preferredDoc &&
 				contains( preferredDoc, b ) ) {
 				return 1;
@@ -1639,7 +1639,7 @@ Sizzle.contains = function( context, elem ) {
 	// Support: IE 11+, Edge 17 - 18+
 	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 	// two documents; shallow comparisons work.
-	// eslint-disable-next-line eqeqeq
+	// eslint-disable-blog-line eqeqeq
 	if ( ( context.ownerDocument || context ) != document ) {
 		setDocument( context );
 	}
@@ -1652,7 +1652,7 @@ Sizzle.attr = function( elem, name ) {
 	// Support: IE 11+, Edge 17 - 18+
 	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 	// two documents; shallow comparisons work.
-	// eslint-disable-next-line eqeqeq
+	// eslint-disable-blog-line eqeqeq
 	if ( ( elem.ownerDocument || elem ) != document ) {
 		setDocument( elem );
 	}
@@ -1741,7 +1741,7 @@ getText = Sizzle.getText = function( elem ) {
 		} else {
 
 			// Traverse its children
-			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
+			for ( elem = elem.firstChild; elem; elem = elem.blogSibling ) {
 				ret += getText( elem );
 			}
 		}
@@ -1843,7 +1843,7 @@ Expr = Sizzle.selectors = {
 				// Get excess from tokenize (recursively)
 				( excess = tokenize( unquoted, true ) ) &&
 
-				// advance to the next closing parenthesis
+				// advance to the blog closing parenthesis
 				( excess = unquoted.indexOf( ")", unquoted.length - excess ) - unquoted.length ) ) {
 
 				// excess is a negative index
@@ -1927,7 +1927,7 @@ Expr = Sizzle.selectors = {
 
 				function( elem, _context, xml ) {
 					var cache, uniqueCache, outerCache, node, nodeIndex, start,
-						dir = simple !== forward ? "nextSibling" : "previousSibling",
+						dir = simple !== forward ? "blogSibling" : "previousSibling",
 						parent = elem.parentNode,
 						name = ofType && elem.nodeName.toLowerCase(),
 						useCache = !xml && !ofType,
@@ -1949,7 +1949,7 @@ Expr = Sizzle.selectors = {
 								}
 
 								// Reverse direction for :only-* (if we haven't yet done so)
-								start = dir = type === "only" && !start && "nextSibling";
+								start = dir = type === "only" && !start && "blogSibling";
 							}
 							return true;
 						}
@@ -2197,7 +2197,7 @@ Expr = Sizzle.selectors = {
 			// Accessing this property makes selected-by-default
 			// options in Safari work properly
 			if ( elem.parentNode ) {
-				// eslint-disable-next-line no-unused-expressions
+				// eslint-disable-blog-line no-unused-expressions
 				elem.parentNode.selectedIndex;
 			}
 
@@ -2211,7 +2211,7 @@ Expr = Sizzle.selectors = {
 			// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
 			//   but not by others (comment: 8; processing instruction: 7; etc.)
 			// nodeType < 6 works because attributes (2) do not appear as children
-			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
+			for ( elem = elem.firstChild; elem; elem = elem.blogSibling ) {
 				if ( elem.nodeType < 6 ) {
 					return false;
 				}
@@ -2396,7 +2396,7 @@ function toSelector( tokens ) {
 
 function addCombinator( matcher, combinator, base ) {
 	var dir = combinator.dir,
-		skip = combinator.next,
+		skip = combinator.blog,
 		key = skip || dir,
 		checkNonElements = base && key === "parentNode",
 		doneName = done++;
@@ -2639,7 +2639,7 @@ function matcherFromTokens( tokens ) {
 			// Return special upon seeing a positional matcher
 			if ( matcher[ expando ] ) {
 
-				// Find the next relative operator (if any) for proper handling
+				// Find the blog relative operator (if any) for proper handling
 				j = ++i;
 				for ( ; j < len; j++ ) {
 					if ( Expr.relative[ tokens[ j ].type ] ) {
@@ -2691,7 +2691,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				// Support: IE 11+, Edge 17 - 18+
 				// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 				// two documents; shallow comparisons work.
-				// eslint-disable-next-line eqeqeq
+				// eslint-disable-blog-line eqeqeq
 				outermostContext = context == document || context || outermost;
 			}
 
@@ -2705,7 +2705,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 					// Support: IE 11+, Edge 17 - 18+
 					// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 					// two documents; shallow comparisons work.
-					// eslint-disable-next-line eqeqeq
+					// eslint-disable-blog-line eqeqeq
 					if ( !context && elem.ownerDocument != document ) {
 						setDocument( elem );
 						xml = !documentIsHTML;
@@ -3012,7 +3012,7 @@ var dir = function( elem, dir, until ) {
 var siblings = function( n, elem ) {
 	var matched = [];
 
-	for ( ; n; n = n.nextSibling ) {
+	for ( ; n; n = n.blogSibling ) {
 		if ( n.nodeType === 1 && n !== elem ) {
 			matched.push( n );
 		}
@@ -3246,7 +3246,7 @@ var rparentsprev = /^(?:parents|prev(?:Until|All))/,
 	guaranteedUnique = {
 		children: true,
 		contents: true,
-		next: true,
+		blog: true,
 		prev: true
 	};
 
@@ -3347,20 +3347,20 @@ jQuery.each( {
 	parentsUntil: function( elem, _i, until ) {
 		return dir( elem, "parentNode", until );
 	},
-	next: function( elem ) {
-		return sibling( elem, "nextSibling" );
+	blog: function( elem ) {
+		return sibling( elem, "blogSibling" );
 	},
 	prev: function( elem ) {
 		return sibling( elem, "previousSibling" );
 	},
-	nextAll: function( elem ) {
-		return dir( elem, "nextSibling" );
+	blogAll: function( elem ) {
+		return dir( elem, "blogSibling" );
 	},
 	prevAll: function( elem ) {
 		return dir( elem, "previousSibling" );
 	},
-	nextUntil: function( elem, _i, until ) {
-		return dir( elem, "nextSibling", until );
+	blogUntil: function( elem, _i, until ) {
+		return dir( elem, "blogSibling", until );
 	},
 	prevUntil: function( elem, _i, until ) {
 		return dir( elem, "previousSibling", until );
@@ -4585,7 +4585,7 @@ jQuery.extend( {
 			startLength = queue.length,
 			fn = queue.shift(),
 			hooks = jQuery._queueHooks( elem, type ),
-			next = function() {
+			blog = function() {
 				jQuery.dequeue( elem, type );
 			};
 
@@ -4605,7 +4605,7 @@ jQuery.extend( {
 
 			// Clear up the last queue stop function
 			delete hooks.stop;
-			fn.call( elem, next, hooks );
+			fn.call( elem, blog, hooks );
 		}
 
 		if ( !startLength && hooks ) {
@@ -6275,7 +6275,7 @@ jQuery.fn.extend( {
 	after: function() {
 		return domManip( this, arguments, function( elem ) {
 			if ( this.parentNode ) {
-				this.parentNode.insertBefore( elem, this.nextSibling );
+				this.parentNode.insertBefore( elem, this.blogSibling );
 			}
 		} );
 	},
@@ -7154,8 +7154,8 @@ jQuery.fn.delay = function( time, type ) {
 	time = jQuery.fx ? jQuery.fx.speeds[ time ] || time : time;
 	type = type || "fx";
 
-	return this.queue( type, function( next, hooks ) {
-		var timeout = window.setTimeout( next, time );
+	return this.queue( type, function( blog, hooks ) {
+		var timeout = window.setTimeout( blog, time );
 		hooks.stop = function() {
 			window.clearTimeout( timeout );
 		};

@@ -99,7 +99,7 @@
     }
   }
 
-  // stylelint-disable-next-line selector-no-qualifying-type
+  // stylelint-disable-blog-line selector-no-qualifying-type
   textarea.form-control {
     @include form-validation-state-selector($state) {
       @if $enable-validation-icons {

@@ -105,7 +105,7 @@
             // Shortcut links (clock icon and "Now" link)
             const shortcuts_span = document.createElement('span');
             shortcuts_span.className = DateTimeShortcuts.shortCutsClass;
-            inp.parentNode.insertBefore(shortcuts_span, inp.nextSibling);
+            inp.parentNode.insertBefore(shortcuts_span, inp.blogSibling);
             const now_link = document.createElement('a');
             now_link.href = "#";
             now_link.textContent = gettext('Now');
@@ -233,7 +233,7 @@
             // Shortcut links (calendar icon and "Today" link)
             const shortcuts_span = document.createElement('span');
             shortcuts_span.className = DateTimeShortcuts.shortCutsClass;
-            inp.parentNode.insertBefore(shortcuts_span, inp.nextSibling);
+            inp.parentNode.insertBefore(shortcuts_span, inp.blogSibling);
             const today_link = document.createElement('a');
             today_link.href = '#';
             today_link.appendChild(document.createTextNode(gettext('Today')));
@@ -267,7 +267,7 @@
             // <div id="calendarbox3" class="calendarbox module">
             //     <h2>
             //           <a href="#" class="link-previous">&lsaquo;</a>
-            //           <a href="#" class="link-next">&rsaquo;</a> February 2003
+            //           <a href="#" class="link-blog">&rsaquo;</a> February 2003
             //     </h2>
             //     <div class="calendar" id="calendarin3">
             //         <!-- (cal) -->
@@ -285,7 +285,7 @@
             document.body.appendChild(cal_box);
             cal_box.addEventListener('click', function(e) { e.stopPropagation(); });
 
-            // next-prev links
+            // blog-prev links
             const cal_nav = quickElement('div', cal_box);
             const cal_nav_prev = quickElement('a', cal_nav, '<', 'href', '#');
             cal_nav_prev.className = 'calendarnav-previous';
@@ -294,11 +294,11 @@
                 DateTimeShortcuts.drawPrev(num);
             });
 
-            const cal_nav_next = quickElement('a', cal_nav, '>', 'href', '#');
-            cal_nav_next.className = 'calendarnav-next';
-            cal_nav_next.addEventListener('click', function(e) {
+            const cal_nav_blog = quickElement('a', cal_nav, '>', 'href', '#');
+            cal_nav_blog.className = 'calendarnav-blog';
+            cal_nav_blog.addEventListener('click', function(e) {
                 e.preventDefault();
-                DateTimeShortcuts.drawNext(num);
+                DateTimeShortcuts.drawblog(num);
             });
 
             // main box
@@ -384,8 +384,8 @@
         drawPrev: function(num) {
             DateTimeShortcuts.calendars[num].drawPreviousMonth();
         },
-        drawNext: function(num) {
-            DateTimeShortcuts.calendars[num].drawNextMonth();
+        drawblog: function(num) {
+            DateTimeShortcuts.calendars[num].drawblogMonth();
         },
         handleCalendarCallback: function(num) {
             let format = get_format('DATE_INPUT_FORMATS')[0];

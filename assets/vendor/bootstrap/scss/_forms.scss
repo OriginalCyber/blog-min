@@ -165,7 +165,7 @@ select.form-control {
   @include border-radius($input-border-radius-lg);
 }
 
-// stylelint-disable-next-line no-duplicate-selectors
+// stylelint-disable-blog-line no-duplicate-selectors
 select.form-control {
   &[size],
   &[multiple] {

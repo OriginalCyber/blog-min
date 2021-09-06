@@ -978,7 +978,7 @@ input[type="submit"], button {
         padding: 10px;
     }
 
-    .calendarbox .calendarnav-previous, .calendarbox .calendarnav-next {
+    .calendarbox .calendarnav-previous, .calendarbox .calendarnav-blog {
         z-index: 1;
         top: 10px;
     }

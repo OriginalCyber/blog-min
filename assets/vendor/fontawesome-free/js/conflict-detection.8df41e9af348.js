@@ -633,11 +633,11 @@
             // eslint-disable-line no-extra-boolean-cast
             resolve(result);
           } else {
-            var nextDuration = 250;
-            var nextCumulativeDuration = nextDuration + cumulativeDuration;
+            var blogDuration = 250;
+            var blogCumulativeDuration = blogDuration + cumulativeDuration;
 
-            if (nextCumulativeDuration <= maxDuration) {
-              poll(nextDuration, nextCumulativeDuration);
+            if (blogCumulativeDuration <= maxDuration) {
+              poll(blogDuration, blogCumulativeDuration);
             } else {
               reject('timeout'); // eslint-disable-line prefer-promise-reject-errors
             }

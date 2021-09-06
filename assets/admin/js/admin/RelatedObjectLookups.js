@@ -37,7 +37,7 @@
 
     function updateRelatedObjectLinks(triggeringLink) {
         const $this = $(triggeringLink);
-        const siblings = $this.nextAll('.view-related, .change-related, .delete-related');
+        const siblings = $this.blogAll('.view-related, .change-related, .delete-related');
         if (!siblings.length) {
             return;
         }
@@ -87,7 +87,7 @@
                 this.value = newId;
             }
         });
-        selects.next().find('.select2-selection__rendered').each(function() {
+        selects.blog().find('.select2-selection__rendered').each(function() {
             // The element can have a clear button as a child.
             // Use the lastChild to modify only the displayed value.
             this.lastChild.textContent = newRepr;

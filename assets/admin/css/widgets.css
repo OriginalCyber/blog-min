@@ -476,7 +476,7 @@ span.clearable-file-input label {
     padding: 8px 0;
 }
 
-.calendarbox .calendarnav-previous, .calendarbox .calendarnav-next {
+.calendarbox .calendarnav-previous, .calendarbox .calendarnav-blog {
     display: block;
     position: absolute;
     top: 8px;
@@ -496,13 +496,13 @@ span.clearable-file-input label {
     background-position: 0 -15px;
 }
 
-.calendarnav-next {
+.calendarnav-blog {
     right: 10px;
     background: url(../img/calendar-icons.svg) 0 -30px no-repeat;
 }
 
-.calendarbox .calendarnav-next:focus,
-.calendarbox .calendarnav-next:hover {
+.calendarbox .calendarnav-blog:focus,
+.calendarbox .calendarnav-blog:hover {
     background-position: 0 -45px;
 }
 

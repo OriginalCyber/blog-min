@@ -313,7 +313,7 @@ module.exports = function(XRegExp) {
         }
 
         while (true) {
-            // If using an escape character, advance to the delimiter's next starting position,
+            // If using an escape character, advance to the delimiter's blog starting position,
             // skipping any escaped characters in between
             if (escapeChar) {
                 delimEnd += (XRegExp.exec(str, esc, delimEnd, 'sticky') || [''])[0].length;
@@ -2969,7 +2969,7 @@ function getContextualTokenSeparator(match, scope, flags) {
         match.input.charAt(match.index - 1) === '(' ||
         match.input.charAt(match.index + match[0].length) === ')' ||
         // Avoid separating tokens when the following token is a quantifier
-        isPatternNext(match.input, match.index + match[0].length, flags, '[?*+]|{\\d+(?:,\\d*)?}')
+        isPatternblog(match.input, match.index + match[0].length, flags, '[?*+]|{\\d+(?:,\\d*)?}')
     ) {
         return '';
     }
@@ -3039,17 +3039,17 @@ function indexOf(array, value) {
 }
 
 /**
- * Checks whether the next nonignorable token after the specified position matches the
+ * Checks whether the blog nonignorable token after the specified position matches the
  * `needlePattern`
  *
  * @private
  * @param {String} pattern Pattern to search within.
  * @param {Number} pos Index in `pattern` to search at.
  * @param {String} flags Flags used by the pattern.
- * @param {String} needlePattern Pattern to match the next token against.
- * @returns {Boolean} Whether the next nonignorable token matches `needlePattern`
+ * @param {String} needlePattern Pattern to match the blog token against.
+ * @returns {Boolean} Whether the blog nonignorable token matches `needlePattern`
  */
-function isPatternNext(pattern, pos, flags, needlePattern) {
+function isPatternblog(pattern, pos, flags, needlePattern) {
     var inlineCommentPattern = '\\(\\?#[^)]*\\)';
     var lineCommentPattern = '#[^#\\n]*';
     var patternsToIgnore = flags.indexOf('x') > -1 ?
@@ -3808,7 +3808,7 @@ XRegExp.match = function(str, regex, scope) {
  * Retrieves the matches from searching a string using a chain of regexes that successively search
  * within previous matches. The provided `chain` array can contain regexes and or objects with
  * `regex` and `backref` properties. When a backreference is specified, the named or numbered
- * backreference is passed forward to the next regex or returned.
+ * backreference is passed forward to the blog regex or returned.
  *
  * @memberOf XRegExp
  * @param {String} str String to search.

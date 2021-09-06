@@ -2950,10 +2950,10 @@ var exports$1 = {
 		}
 
 		ctx.bezierCurveTo(
-			flip ? previous.controlPointPreviousX : previous.controlPointNextX,
-			flip ? previous.controlPointPreviousY : previous.controlPointNextY,
-			flip ? target.controlPointNextX : target.controlPointPreviousX,
-			flip ? target.controlPointNextY : target.controlPointPreviousY,
+			flip ? previous.controlPointPreviousX : previous.controlPointblogX,
+			flip ? previous.controlPointPreviousY : previous.controlPointblogY,
+			flip ? target.controlPointblogX : target.controlPointPreviousX,
+			flip ? target.controlPointblogY : target.controlPointPreviousY,
 			target.x,
 			target.y);
 	}
@@ -3531,7 +3531,7 @@ var core_animations = {
 	 */
 	advance: function() {
 		var animations = this.animations;
-		var animation, chart, numSteps, nextStep;
+		var animation, chart, numSteps, blogStep;
 		var i = 0;
 
 		// 1 animation per chart, so we are looping charts here
@@ -3542,8 +3542,8 @@ var core_animations = {
 
 			// Make sure that currentStep starts at 1
 			// https://github.com/chartjs/Chart.js/issues/6104
-			nextStep = Math.floor((Date.now() - animation.startTime) / animation.duration * numSteps) + 1;
-			animation.currentStep = Math.min(nextStep, numSteps);
+			blogStep = Math.floor((Date.now() - animation.startTime) / animation.duration * numSteps) + 1;
+			animation.currentStep = Math.min(blogStep, numSteps);
 
 			helpers$1.callback(animation.render, [chart, animation], chart);
 			helpers$1.callback(animation.onAnimationProgress, [animation], chart);
@@ -4424,7 +4424,7 @@ var element_line = core_element.extend({
 					// There was a gap and this is the first point after the gap
 					ctx.moveTo(currentVM.x, currentVM.y);
 				} else {
-					// Line to next point
+					// Line to blog point
 					helpers$1.canvas.lineTo(ctx, previous._view, currentVM);
 				}
 				lastDrawnIndex = index;
@@ -4842,23 +4842,23 @@ function computeFlexCategoryTraits(index, ruler, options) {
 	var pixels = ruler.pixels;
 	var curr = pixels[index];
 	var prev = index > 0 ? pixels[index - 1] : null;
-	var next = index < pixels.length - 1 ? pixels[index + 1] : null;
+	var blog = index < pixels.length - 1 ? pixels[index + 1] : null;
 	var percent = options.categoryPercentage;
 	var start, size;
 
 	if (prev === null) {
-		// first data: its size is double based on the next point or,
+		// first data: its size is double based on the blog point or,
 		// if it's also the last data, we use the scale size.
-		prev = curr - (next === null ? ruler.end - ruler.start : next - curr);
+		prev = curr - (blog === null ? ruler.end - ruler.start : blog - curr);
 	}
 
-	if (next === null) {
+	if (blog === null) {
 		// last data: its size is also double based on the previous point.
-		next = curr + curr - prev;
+		blog = curr + curr - prev;
 	}
 
-	start = curr - (curr - Math.min(prev, next)) / 2 * percent;
-	size = Math.abs(next - prev) / 2 * percent;
+	start = curr - (curr - Math.min(prev, blog)) / 2 * percent;
+	size = Math.abs(blog - prev) / 2 * percent;
 
 	return {
 		chunk: size / ruler.stackCount,
@@ -6064,13 +6064,13 @@ var controller_line = core_datasetController.extend({
 				controlPoints = helpers$1.splineCurve(
 					helpers$1.previousItem(points, i)._model,
 					model,
-					helpers$1.nextItem(points, i)._model,
+					helpers$1.blogItem(points, i)._model,
 					lineModel.tension
 				);
 				model.controlPointPreviousX = controlPoints.previous.x;
 				model.controlPointPreviousY = controlPoints.previous.y;
-				model.controlPointNextX = controlPoints.next.x;
-				model.controlPointNextY = controlPoints.next.y;
+				model.controlPointblogX = controlPoints.blog.x;
+				model.controlPointblogY = controlPoints.blog.y;
 			}
 		}
 
@@ -6083,8 +6083,8 @@ var controller_line = core_datasetController.extend({
 						model.controlPointPreviousY = capControlPoint(model.controlPointPreviousY, area.top, area.bottom);
 					}
 					if (i < points.length - 1 && isPointInArea(points[i + 1]._model, area)) {
-						model.controlPointNextX = capControlPoint(model.controlPointNextX, area.left, area.right);
-						model.controlPointNextY = capControlPoint(model.controlPointNextY, area.top, area.bottom);
+						model.controlPointblogX = capControlPoint(model.controlPointblogX, area.left, area.right);
+						model.controlPointblogY = capControlPoint(model.controlPointblogY, area.top, area.bottom);
 					}
 				}
 			}
@@ -6618,15 +6618,15 @@ var controller_radar = core_datasetController.extend({
 			controlPoints = helpers$1.splineCurve(
 				helpers$1.previousItem(points, i, true)._model,
 				model,
-				helpers$1.nextItem(points, i, true)._model,
+				helpers$1.blogItem(points, i, true)._model,
 				model.tension
 			);
 
 			// Prevent the bezier going outside of the bounds of the graph
 			model.controlPointPreviousX = capControlPoint(controlPoints.previous.x, area.left, area.right);
 			model.controlPointPreviousY = capControlPoint(controlPoints.previous.y, area.top, area.bottom);
-			model.controlPointNextX = capControlPoint(controlPoints.next.x, area.left, area.right);
-			model.controlPointNextY = capControlPoint(controlPoints.next.y, area.top, area.bottom);
+			model.controlPointblogX = capControlPoint(controlPoints.blog.x, area.left, area.right);
+			model.controlPointblogY = capControlPoint(controlPoints.blog.y, area.top, area.bottom);
 		}
 	},
 
@@ -7519,7 +7519,7 @@ var supportsEventListenerOptions = (function() {
 	var supports = false;
 	try {
 		var options = Object.defineProperty({}, 'passive', {
-			// eslint-disable-next-line getter-return
+			// eslint-disable-blog-line getter-return
 			get: function() {
 				supports = true;
 			}
@@ -7814,7 +7814,7 @@ var platform_dom$2 = {
 		// we can't use save() and restore() to restore the initial state. So make sure that at
 		// least the canvas context is reset to the default state by setting the canvas width.
 		// https://www.w3.org/TR/2011/WD-html5-20110525/the-canvas-element.html
-		// eslint-disable-next-line no-self-assign
+		// eslint-disable-blog-line no-self-assign
 		canvas.width = canvas.width;
 
 		delete canvas[EXPANDO_KEY];
@@ -9286,7 +9286,7 @@ function updateConfig(chart) {
 	chart.tooltip.initialize();
 }
 
-function nextAvailableScaleId(axesOpts, prefix, index) {
+function blogAvailableScaleId(axesOpts, prefix, index) {
 	var id;
 	var hasId = function(obj) {
 		return obj.id === id;
@@ -9463,13 +9463,13 @@ helpers$1.extend(Chart.prototype, /** @lends Chart */ {
 
 		helpers$1.each(scalesOptions.xAxes, function(xAxisOptions, index) {
 			if (!xAxisOptions.id) {
-				xAxisOptions.id = nextAvailableScaleId(scalesOptions.xAxes, 'x-axis-', index);
+				xAxisOptions.id = blogAvailableScaleId(scalesOptions.xAxes, 'x-axis-', index);
 			}
 		});
 
 		helpers$1.each(scalesOptions.yAxes, function(yAxisOptions, index) {
 			if (!yAxisOptions.id) {
-				yAxisOptions.id = nextAvailableScaleId(scalesOptions.yAxes, 'y-axis-', index);
+				yAxisOptions.id = blogAvailableScaleId(scalesOptions.yAxes, 'y-axis-', index);
 			}
 		});
 
@@ -10332,7 +10332,7 @@ var core_helpers = function() {
 			}
 			return -1;
 		};
-	helpers$1.findNextWhere = function(arrayToSearch, filterCallback, startIndex) {
+	helpers$1.findblogWhere = function(arrayToSearch, filterCallback, startIndex) {
 		// Default to start of the array
 		if (helpers$1.isNullOrUndef(startIndex)) {
 			startIndex = -1;
@@ -10475,10 +10475,10 @@ var core_helpers = function() {
 
 		var previous = firstPoint.skip ? middlePoint : firstPoint;
 		var current = middlePoint;
-		var next = afterPoint.skip ? middlePoint : afterPoint;
+		var blog = afterPoint.skip ? middlePoint : afterPoint;
 
 		var d01 = Math.sqrt(Math.pow(current.x - previous.x, 2) + Math.pow(current.y - previous.y, 2));
-		var d12 = Math.sqrt(Math.pow(next.x - current.x, 2) + Math.pow(next.y - current.y, 2));
+		var d12 = Math.sqrt(Math.pow(blog.x - current.x, 2) + Math.pow(blog.y - current.y, 2));
 
 		var s01 = d01 / (d01 + d12);
 		var s12 = d12 / (d01 + d12);
@@ -10492,12 +10492,12 @@ var core_helpers = function() {
 
 		return {
 			previous: {
-				x: current.x - fa * (next.x - previous.x),
-				y: current.y - fa * (next.y - previous.y)
+				x: current.x - fa * (blog.x - previous.x),
+				y: current.y - fa * (blog.y - previous.y)
 			},
-			next: {
-				x: current.x + fb * (next.x - previous.x),
-				y: current.y + fb * (next.y - previous.y)
+			blog: {
+				x: current.x + fb * (blog.x - previous.x),
+				y: current.y + fb * (blog.y - previous.y)
 			}
 		};
 	};
@@ -10588,12 +10588,12 @@ var core_helpers = function() {
 			}
 			if (pointAfter && !pointAfter.model.skip) {
 				deltaX = (pointAfter.model.x - pointCurrent.model.x) / 3;
-				pointCurrent.model.controlPointNextX = pointCurrent.model.x + deltaX;
-				pointCurrent.model.controlPointNextY = pointCurrent.model.y + deltaX * pointCurrent.mK;
+				pointCurrent.model.controlPointblogX = pointCurrent.model.x + deltaX;
+				pointCurrent.model.controlPointblogY = pointCurrent.model.y + deltaX * pointCurrent.mK;
 			}
 		}
 	};
-	helpers$1.nextItem = function(collection, index, loop) {
+	helpers$1.blogItem = function(collection, index, loop) {
 		if (loop) {
 			return index >= collection.length - 1 ? collection[0] : collection[index + 1];
 		}
@@ -11380,16 +11380,16 @@ function getMajorIndices(ticks) {
 
 function skipMajors(ticks, majorIndices, spacing) {
 	var count = 0;
-	var next = majorIndices[0];
+	var blog = majorIndices[0];
 	var i, tick;
 
 	spacing = Math.ceil(spacing);
 	for (i = 0; i < ticks.length; i++) {
 		tick = ticks[i];
-		if (i === next) {
+		if (i === blog) {
 			tick._index = i;
 			count++;
-			next = majorIndices[count * spacing];
+			blog = majorIndices[count * spacing];
 		} else {
 			delete tick.label;
 		}
@@ -11400,7 +11400,7 @@ function skip(ticks, spacing, majorStart, majorEnd) {
 	var start = valueOrDefault$a(majorStart, 0);
 	var end = Math.min(valueOrDefault$a(majorEnd, ticks.length), ticks.length);
 	var count = 0;
-	var length, i, tick, next;
+	var length, i, tick, blog;
 
 	spacing = Math.ceil(spacing);
 	if (majorEnd) {
@@ -11408,19 +11408,19 @@ function skip(ticks, spacing, majorStart, majorEnd) {
 		spacing = length / Math.floor(length / spacing);
 	}
 
-	next = start;
+	blog = start;
 
-	while (next < 0) {
+	while (blog < 0) {
 		count++;
-		next = Math.round(start + count * spacing);
+		blog = Math.round(start + count * spacing);
 	}
 
 	for (i = Math.max(start, 0); i < end; i++) {
 		tick = ticks[i];
-		if (i === next) {
+		if (i === blog) {
 			tick._index = i;
 			count++;
-			next = Math.round(start + count * spacing);
+			blog = Math.round(start + count * spacing);
 		} else {
 			delete tick.label;
 		}
@@ -14053,7 +14053,7 @@ function buildLookupTable(timestamps, min, max, distribution) {
 
 	var table = [];
 	var items = [min];
-	var i, ilen, prev, curr, next;
+	var i, ilen, prev, curr, blog;
 
 	for (i = 0, ilen = timestamps.length; i < ilen; ++i) {
 		curr = timestamps[i];
@@ -14065,12 +14065,12 @@ function buildLookupTable(timestamps, min, max, distribution) {
 	items.push(max);
 
 	for (i = 0, ilen = items.length; i < ilen; ++i) {
-		next = items[i + 1];
+		blog = items[i + 1];
 		prev = items[i - 1];
 		curr = items[i];
 
 		// only add points that breaks the scale linearity
-		if (prev === undefined || next === undefined || Math.round((next + prev) / 2) !== curr) {
+		if (prev === undefined || blog === undefined || Math.round((blog + prev) / 2) !== curr) {
 			table.push({time: curr, pos: i / (ilen - 1)});
 		}
 	}
@@ -14116,11 +14116,11 @@ function interpolate$1(table, skey, sval, tkey) {
 
 	// Note: the lookup table ALWAYS contains at least 2 items (min and max)
 	var prev = !range.lo ? table[0] : !range.hi ? table[table.length - 2] : range.lo;
-	var next = !range.lo ? table[1] : !range.hi ? table[table.length - 1] : range.hi;
+	var blog = !range.lo ? table[1] : !range.hi ? table[table.length - 1] : range.hi;
 
-	var span = next[skey] - prev[skey];
+	var span = blog[skey] - prev[skey];
 	var ratio = span ? (sval - prev[skey]) / span : 0;
-	var offset = (next[tkey] - prev[tkey]) * ratio;
+	var offset = (blog[tkey] - prev[tkey]) * ratio;
 
 	return prev[tkey] + offset;
 }
@@ -15064,7 +15064,7 @@ var moment = createCommonjsModule(function (module, exports) {
         this._config = config;
         // Lenient ordinal parsing accepts just a number in addition to
         // number + (possibly) stuff coming from _dayOfMonthOrdinalParse.
-        // TODO: Remove "ordinalParse" fallback in next major release.
+        // TODO: Remove "ordinalParse" fallback in blog major release.
         this._dayOfMonthOrdinalParseLenient = new RegExp(
             (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
                 '|' + (/\d{1,2}/).source);
@@ -15120,8 +15120,8 @@ var moment = createCommonjsModule(function (module, exports) {
 
     var defaultCalendar = {
         sameDay : '[Today at] LT',
-        nextDay : '[Tomorrow at] LT',
-        nextWeek : 'dddd [at] LT',
+        blogDay : '[Tomorrow at] LT',
+        blogWeek : 'dddd [at] LT',
         lastDay : '[Yesterday at] LT',
         lastWeek : '[Last] dddd [at] LT',
         sameElse : 'L'
@@ -15941,8 +15941,8 @@ var moment = createCommonjsModule(function (module, exports) {
 
     function weeksInYear(year, dow, doy) {
         var weekOffset = firstWeekOffset(year, dow, doy),
-            weekOffsetNext = firstWeekOffset(year + 1, dow, doy);
-        return (daysInYear(year) - weekOffset + weekOffsetNext) / 7;
+            weekOffsetblog = firstWeekOffset(year + 1, dow, doy);
+        return (daysInYear(year) - weekOffset + weekOffsetblog) / 7;
     }
 
     // FORMATTING
@@ -16525,22 +16525,22 @@ var moment = createCommonjsModule(function (module, exports) {
 
     // pick the locale from the array
     // try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
-    // substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
+    // substring from most specific to least, but move to the blog array item if it's a more specific variant than the current root
     function chooseLocale(names) {
-        var i = 0, j, next, locale, split;
+        var i = 0, j, blog, locale, split;
 
         while (i < names.length) {
             split = normalizeLocale(names[i]).split('-');
             j = split.length;
-            next = normalizeLocale(names[i + 1]);
-            next = next ? next.split('-') : null;
+            blog = normalizeLocale(names[i + 1]);
+            blog = blog ? blog.split('-') : null;
             while (j > 0) {
                 locale = loadLocale(split.slice(0, j).join('-'));
                 if (locale) {
                     return locale;
                 }
-                if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
-                    //the next array item is better than a shallower substring of this one
+                if (blog && blog.length >= j && compareArrays(split, blog, true) >= j - 1) {
+                    //the blog array item is better than a shallower substring of this one
                     break;
                 }
                 j--;
@@ -16801,7 +16801,7 @@ var moment = createCommonjsModule(function (module, exports) {
                 config._a[MINUTE] === 0 &&
                 config._a[SECOND] === 0 &&
                 config._a[MILLISECOND] === 0) {
-            config._nextDay = true;
+            config._blogDay = true;
             config._a[HOUR] = 0;
         }
 
@@ -16814,7 +16814,7 @@ var moment = createCommonjsModule(function (module, exports) {
             config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
         }
 
-        if (config._nextDay) {
+        if (config._blogDay) {
             config._a[HOUR] = 24;
         }
 
@@ -16854,7 +16854,7 @@ var moment = createCommonjsModule(function (module, exports) {
             week = defaults(w.w, curWeek.week);
 
             if (w.d != null) {
-                // weekday -- low day numbers are considered next week
+                // weekday -- low day numbers are considered blog week
                 weekday = w.d;
                 if (weekday < 0 || weekday > 6) {
                     weekdayOverflow = true;
@@ -17267,10 +17267,10 @@ var moment = createCommonjsModule(function (module, exports) {
 
     function createFromConfig (config) {
         var res = new Moment(checkOverflow(prepareConfig(config)));
-        if (res._nextDay) {
+        if (res._blogDay) {
             // Adding is smart enough around DST
             res.add(1, 'd');
-            res._nextDay = undefined;
+            res._blogDay = undefined;
         }
 
         return res;
@@ -17890,8 +17890,8 @@ var moment = createCommonjsModule(function (module, exports) {
                 diff < -1 ? 'lastWeek' :
                 diff < 0 ? 'lastDay' :
                 diff < 1 ? 'sameDay' :
-                diff < 2 ? 'nextDay' :
-                diff < 7 ? 'nextWeek' : 'sameElse';
+                diff < 2 ? 'blogDay' :
+                diff < 7 ? 'blogWeek' : 'sameElse';
     }
 
     function calendar$1 (time, formats) {
@@ -18465,7 +18465,7 @@ var moment = createCommonjsModule(function (module, exports) {
     addRegexToken('D',  match1to2);
     addRegexToken('DD', match1to2, match2);
     addRegexToken('Do', function (isStrict, locale) {
-        // TODO: Remove "ordinalParse" fallback in next major release.
+        // TODO: Remove "ordinalParse" fallback in blog major release.
         return isStrict ?
           (locale._dayOfMonthOrdinalParse || locale._ordinalParse) :
           locale._dayOfMonthOrdinalParseLenient;

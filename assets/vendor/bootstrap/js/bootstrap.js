@@ -618,7 +618,7 @@
     wrap: 'boolean',
     touch: 'boolean'
   };
-  var DIRECTION_NEXT = 'next';
+  var DIRECTION_blog = 'blog';
   var DIRECTION_PREV = 'prev';
   var DIRECTION_LEFT = 'left';
   var DIRECTION_RIGHT = 'right';
@@ -640,14 +640,14 @@
   var CLASS_NAME_SLIDE = 'slide';
   var CLASS_NAME_RIGHT = 'carousel-item-right';
   var CLASS_NAME_LEFT = 'carousel-item-left';
-  var CLASS_NAME_NEXT = 'carousel-item-next';
+  var CLASS_NAME_blog = 'carousel-item-blog';
   var CLASS_NAME_PREV = 'carousel-item-prev';
   var CLASS_NAME_POINTER_EVENT = 'pointer-event';
   var SELECTOR_ACTIVE$1 = '.active';
   var SELECTOR_ACTIVE_ITEM = '.active.carousel-item';
   var SELECTOR_ITEM = '.carousel-item';
   var SELECTOR_ITEM_IMG = '.carousel-item img';
-  var SELECTOR_NEXT_PREV = '.carousel-item-next, .carousel-item-prev';
+  var SELECTOR_blog_PREV = '.carousel-item-blog, .carousel-item-prev';
   var SELECTOR_INDICATORS = '.carousel-indicators';
   var SELECTOR_DATA_SLIDE = '[data-slide], [data-slide-to]';
   var SELECTOR_DATA_RIDE = '[data-ride="carousel"]';
@@ -684,18 +684,18 @@
     var _proto = Carousel.prototype;
 
     // Public
-    _proto.next = function next() {
+    _proto.blog = function blog() {
       if (!this._isSliding) {
-        this._slide(DIRECTION_NEXT);
+        this._slide(DIRECTION_blog);
       }
     };
 
-    _proto.nextWhenVisible = function nextWhenVisible() {
-      var $element = $__default['default'](this._element); // Don't call next when the page isn't visible
+    _proto.blogWhenVisible = function blogWhenVisible() {
+      var $element = $__default['default'](this._element); // Don't call blog when the page isn't visible
       // or the carousel or its parent isn't visible
 
       if (!document.hidden && $element.is(':visible') && $element.css('visibility') !== 'hidden') {
-        this.next();
+        this.blog();
       }
     };
 
@@ -710,7 +710,7 @@
         this._isPaused = true;
       }
 
-      if (this._element.querySelector(SELECTOR_NEXT_PREV)) {
+      if (this._element.querySelector(SELECTOR_blog_PREV)) {
         Util.triggerTransitionEnd(this._element);
         this.cycle(true);
       }
@@ -732,7 +732,7 @@
       if (this._config.interval && !this._isPaused) {
         this._updateInterval();
 
-        this._interval = setInterval((document.visibilityState ? this.nextWhenVisible : this.next).bind(this), this._config.interval);
+        this._interval = setInterval((document.visibilityState ? this.blogWhenVisible : this.blog).bind(this), this._config.interval);
       }
     };
 
@@ -760,7 +760,7 @@
         return;
       }
 
-      var direction = index > activeIndex ? DIRECTION_NEXT : DIRECTION_PREV;
+      var direction = index > activeIndex ? DIRECTION_blog : DIRECTION_PREV;
 
       this._slide(direction, this._items[index]);
     };
@@ -801,7 +801,7 @@
 
 
       if (direction < 0) {
-        this.next();
+        this.blog();
       }
     };
 
@@ -917,7 +917,7 @@
 
         case ARROW_RIGHT_KEYCODE:
           event.preventDefault();
-          this.next();
+          this.blog();
           break;
       }
     };
@@ -928,13 +928,13 @@
     };
 
     _proto._getItemByDirection = function _getItemByDirection(direction, activeElement) {
-      var isNextDirection = direction === DIRECTION_NEXT;
+      var isblogDirection = direction === DIRECTION_blog;
       var isPrevDirection = direction === DIRECTION_PREV;
 
       var activeIndex = this._getItemIndex(activeElement);
 
       var lastItemIndex = this._items.length - 1;
-      var isGoingToWrap = isPrevDirection && activeIndex === 0 || isNextDirection && activeIndex === lastItemIndex;
+      var isGoingToWrap = isPrevDirection && activeIndex === 0 || isblogDirection && activeIndex === lastItemIndex;
 
       if (isGoingToWrap && !this._config.wrap) {
         return activeElement;
@@ -965,10 +965,10 @@
         var indicators = [].slice.call(this._indicatorsElement.querySelectorAll(SELECTOR_ACTIVE$1));
         $__default['default'](indicators).removeClass(CLASS_NAME_ACTIVE$1);
 
-        var nextIndicator = this._indicatorsElement.children[this._getItemIndex(element)];
+        var blogIndicator = this._indicatorsElement.children[this._getItemIndex(element)];
 
-        if (nextIndicator) {
-          $__default['default'](nextIndicator).addClass(CLASS_NAME_ACTIVE$1);
+        if (blogIndicator) {
+          $__default['default'](blogIndicator).addClass(CLASS_NAME_ACTIVE$1);
         }
       }
     };
@@ -997,18 +997,18 @@
 
       var activeElementIndex = this._getItemIndex(activeElement);
 
-      var nextElement = element || activeElement && this._getItemByDirection(direction, activeElement);
+      var blogElement = element || activeElement && this._getItemByDirection(direction, activeElement);
 
-      var nextElementIndex = this._getItemIndex(nextElement);
+      var blogElementIndex = this._getItemIndex(blogElement);
 
       var isCycling = Boolean(this._interval);
       var directionalClassName;
       var orderClassName;
       var eventDirectionName;
 
-      if (direction === DIRECTION_NEXT) {
+      if (direction === DIRECTION_blog) {
         directionalClassName = CLASS_NAME_LEFT;
-        orderClassName = CLASS_NAME_NEXT;
+        orderClassName = CLASS_NAME_blog;
         eventDirectionName = DIRECTION_LEFT;
       } else {
         directionalClassName = CLASS_NAME_RIGHT;
@@ -1016,18 +1016,18 @@
         eventDirectionName = DIRECTION_RIGHT;
       }
 
-      if (nextElement && $__default['default'](nextElement).hasClass(CLASS_NAME_ACTIVE$1)) {
+      if (blogElement && $__default['default'](blogElement).hasClass(CLASS_NAME_ACTIVE$1)) {
         this._isSliding = false;
         return;
       }
 
-      var slideEvent = this._triggerSlideEvent(nextElement, eventDirectionName);
+      var slideEvent = this._triggerSlideEvent(blogElement, eventDirectionName);
 
       if (slideEvent.isDefaultPrevented()) {
         return;
       }
 
-      if (!activeElement || !nextElement) {
+      if (!activeElement || !blogElement) {
         // Some weirdness is happening, so we bail
         return;
       }
@@ -1038,24 +1038,24 @@
         this.pause();
       }
 
-      this._setActiveIndicatorElement(nextElement);
+      this._setActiveIndicatorElement(blogElement);
 
-      this._activeElement = nextElement;
+      this._activeElement = blogElement;
       var slidEvent = $__default['default'].Event(EVENT_SLID, {
-        relatedTarget: nextElement,
+        relatedTarget: blogElement,
         direction: eventDirectionName,
         from: activeElementIndex,
-        to: nextElementIndex
+        to: blogElementIndex
       });
 
       if ($__default['default'](this._element).hasClass(CLASS_NAME_SLIDE)) {
-        $__default['default'](nextElement).addClass(orderClassName);
-        Util.reflow(nextElement);
+        $__default['default'](blogElement).addClass(orderClassName);
+        Util.reflow(blogElement);
         $__default['default'](activeElement).addClass(directionalClassName);
-        $__default['default'](nextElement).addClass(directionalClassName);
+        $__default['default'](blogElement).addClass(directionalClassName);
         var transitionDuration = Util.getTransitionDurationFromElement(activeElement);
         $__default['default'](activeElement).one(Util.TRANSITION_END, function () {
-          $__default['default'](nextElement).removeClass(directionalClassName + " " + orderClassName).addClass(CLASS_NAME_ACTIVE$1);
+          $__default['default'](blogElement).removeClass(directionalClassName + " " + orderClassName).addClass(CLASS_NAME_ACTIVE$1);
           $__default['default'](activeElement).removeClass(CLASS_NAME_ACTIVE$1 + " " + orderClassName + " " + directionalClassName);
           _this4._isSliding = false;
           setTimeout(function () {
@@ -1064,7 +1064,7 @@
         }).emulateTransitionEnd(transitionDuration);
       } else {
         $__default['default'](activeElement).removeClass(CLASS_NAME_ACTIVE$1);
-        $__default['default'](nextElement).addClass(CLASS_NAME_ACTIVE$1);
+        $__default['default'](blogElement).addClass(CLASS_NAME_ACTIVE$1);
         this._isSliding = false;
         $__default['default'](this._element).trigger(slidEvent);
       }
@@ -1931,7 +1931,7 @@
       }
 
       return parent || element.parentNode;
-    } // eslint-disable-next-line complexity
+    } // eslint-disable-blog-line complexity
     ;
 
     Dropdown._dataApiKeydownHandler = function _dataApiKeydownHandler(event) {

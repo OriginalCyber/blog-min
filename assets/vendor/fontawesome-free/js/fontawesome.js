@@ -106,7 +106,7 @@
     var _e = undefined;
 
     try {
-      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.blog()).done); _n = true) {
         _arr.push(_s.value);
 
         if (i && _arr.length === i) break;
@@ -644,7 +644,7 @@
     return css;
   }
   var idPool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  function nextUniqueId() {
+  function blogUniqueId() {
     var size = 12;
     var id = '';
 
@@ -807,8 +807,8 @@
       attributes: _objectSpread({}, trans.outer),
       children: [maskInnerGroup]
     };
-    var maskId = "mask-".concat(explicitMaskId || nextUniqueId());
-    var clipId = "clip-".concat(explicitMaskId || nextUniqueId());
+    var maskId = "mask-".concat(explicitMaskId || blogUniqueId());
+    var clipId = "clip-".concat(explicitMaskId || blogUniqueId());
     var maskTag = {
       tag: 'mask',
       attributes: _objectSpread({}, ALL_SPACE, {
@@ -980,7 +980,7 @@
     if (title) content.children.push({
       tag: 'title',
       attributes: {
-        id: content.attributes['aria-labelledby'] || "title-".concat(titleId || nextUniqueId())
+        id: content.attributes['aria-labelledby'] || "title-".concat(titleId || blogUniqueId())
       },
       children: [title]
     });
@@ -1618,7 +1618,7 @@
 
     if (config.autoA11y) {
       if (title) {
-        extraAttributes['aria-labelledby'] = "".concat(config.replacementClass, "-title-").concat(titleId || nextUniqueId());
+        extraAttributes['aria-labelledby'] = "".concat(config.replacementClass, "-title-").concat(titleId || blogUniqueId());
       } else {
         extraAttributes['aria-hidden'] = 'true';
         extraAttributes['focusable'] = 'false';
@@ -2202,7 +2202,7 @@
     return iconFromMapping(library.definitions, prefix, iconName) || iconFromMapping(namespace.styles, prefix, iconName);
   }
 
-  function resolveIcons(next) {
+  function resolveIcons(blog) {
     return function (maybeIconDefinition) {
       var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       var iconDefinition = (maybeIconDefinition || {}).icon ? maybeIconDefinition : findIconDefinition(maybeIconDefinition || {});
@@ -2212,7 +2212,7 @@
         mask = (mask || {}).icon ? mask : findIconDefinition(mask || {});
       }
 
-      return next(iconDefinition, _objectSpread({}, params, {
+      return blog(iconDefinition, _objectSpread({}, params, {
         mask: mask
       }));
     };
@@ -2312,7 +2312,7 @@
 
       if (config.autoA11y) {
         if (title) {
-          attributes['aria-labelledby'] = "".concat(config.replacementClass, "-title-").concat(titleId || nextUniqueId());
+          attributes['aria-labelledby'] = "".concat(config.replacementClass, "-title-").concat(titleId || blogUniqueId());
         } else {
           attributes['aria-hidden'] = 'true';
           attributes['focusable'] = 'false';

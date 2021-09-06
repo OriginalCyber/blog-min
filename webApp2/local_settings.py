@@ -7,9 +7,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path 
+from pathlib import Path
 import os
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +23,7 @@ SECRET_KEY = 'django-insecure-151cd2094=@(reru0z6^n4-t59*%=338@75qqgc$l13b+8y3r6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '5432', 'chawadon-blog.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'chawadon-template.herokuapp.com']
 
 
 # Application definition
@@ -88,8 +87,6 @@ DATABASES = {
     }
 }
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update (db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

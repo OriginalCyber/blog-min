@@ -432,7 +432,7 @@ angle-double-right:
       - caret
       - forward
       - more
-      - next
+      - blog
       - quote
       - raquo
   styles:
@@ -498,7 +498,7 @@ angle-right:
       - care
       - forward
       - more
-      - next
+      - blog
   styles:
     - solid
   unicode: f105
@@ -716,7 +716,7 @@ arrow-alt-circle-right:
     terms:
       - arrow-circle-o-right
       - forward
-      - next
+      - blog
   styles:
     - solid
     - regular
@@ -767,7 +767,7 @@ arrow-circle-right:
   search:
     terms:
       - forward
-      - next
+      - blog
   styles:
     - solid
   unicode: f0a9
@@ -817,7 +817,7 @@ arrow-right:
   search:
     terms:
       - forward
-      - next
+      - blog
   styles:
     - solid
   unicode: f061
@@ -2987,7 +2987,7 @@ caret-right:
     terms:
       - arrow
       - forward
-      - next
+      - blog
       - triangle
   styles:
     - solid
@@ -3039,7 +3039,7 @@ caret-square-right:
       - arrow
       - caret-square-o-right
       - forward
-      - next
+      - blog
       - triangle
   styles:
     - solid
@@ -3723,7 +3723,7 @@ chevron-circle-right:
     terms:
       - arrow
       - forward
-      - next
+      - blog
   styles:
     - solid
   unicode: f138
@@ -3781,7 +3781,7 @@ chevron-right:
       - arrow
       - bracket
       - forward
-      - next
+      - blog
   styles:
     - solid
   unicode: f054
@@ -6841,7 +6841,7 @@ fast-forward:
     terms:
       - end
       - last
-      - next
+      - blog
   styles:
     - solid
   unicode: f050
@@ -7963,7 +7963,7 @@ forward:
   search:
     terms:
       - forward
-      - next
+      - blog
       - skip
   styles:
     - solid
@@ -9505,7 +9505,7 @@ hand-point-right:
       - finger
       - forward
       - hand-o-right
-      - next
+      - blog
       - point
       - right
   styles:
@@ -11902,7 +11902,7 @@ long-arrow-alt-right:
     terms:
       - forward
       - long-arrow-right
-      - next
+      - blog
   styles:
     - solid
   unicode: f30b
@@ -17826,7 +17826,7 @@ step-forward:
     terms:
       - end
       - last
-      - next
+      - blog
   styles:
     - solid
   unicode: f051

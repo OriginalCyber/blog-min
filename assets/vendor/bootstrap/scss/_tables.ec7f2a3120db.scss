@@ -108,7 +108,7 @@
 //
 // Same table markup, but inverted color scheme: dark background and light text.
 
-// stylelint-disable-next-line no-duplicate-selectors
+// stylelint-disable-blog-line no-duplicate-selectors
 .table {
   .thead-dark {
     th {
@@ -165,8 +165,8 @@
 
 .table-responsive {
   @each $breakpoint in map-keys($grid-breakpoints) {
-    $next: breakpoint-next($breakpoint, $grid-breakpoints);
-    $infix: breakpoint-infix($next, $grid-breakpoints);
+    $blog: breakpoint-blog($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($blog, $grid-breakpoints);
 
     &#{$infix} {
       @include media-breakpoint-down($breakpoint) {

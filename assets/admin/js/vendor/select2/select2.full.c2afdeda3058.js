@@ -1197,55 +1197,55 @@ S2.define('select2/results',[
         return;
       }
 
-      var nextIndex = currentIndex - 1;
+      var blogIndex = currentIndex - 1;
 
       // If none are highlighted, highlight the first
       if ($highlighted.length === 0) {
-        nextIndex = 0;
+        blogIndex = 0;
       }
 
-      var $next = $options.eq(nextIndex);
+      var $blog = $options.eq(blogIndex);
 
-      $next.trigger('mouseenter');
+      $blog.trigger('mouseenter');
 
       var currentOffset = self.$results.offset().top;
-      var nextTop = $next.offset().top;
-      var nextOffset = self.$results.scrollTop() + (nextTop - currentOffset);
+      var blogTop = $blog.offset().top;
+      var blogOffset = self.$results.scrollTop() + (blogTop - currentOffset);
 
-      if (nextIndex === 0) {
+      if (blogIndex === 0) {
         self.$results.scrollTop(0);
-      } else if (nextTop - currentOffset < 0) {
-        self.$results.scrollTop(nextOffset);
+      } else if (blogTop - currentOffset < 0) {
+        self.$results.scrollTop(blogOffset);
       }
     });
 
-    container.on('results:next', function () {
+    container.on('results:blog', function () {
       var $highlighted = self.getHighlightedResults();
 
       var $options = self.$results.find('[aria-selected]');
 
       var currentIndex = $options.index($highlighted);
 
-      var nextIndex = currentIndex + 1;
+      var blogIndex = currentIndex + 1;
 
       // If we are at the last option, stay there
-      if (nextIndex >= $options.length) {
+      if (blogIndex >= $options.length) {
         return;
       }
 
-      var $next = $options.eq(nextIndex);
+      var $blog = $options.eq(blogIndex);
 
-      $next.trigger('mouseenter');
+      $blog.trigger('mouseenter');
 
       var currentOffset = self.$results.offset().top +
         self.$results.outerHeight(false);
-      var nextBottom = $next.offset().top + $next.outerHeight(false);
-      var nextOffset = self.$results.scrollTop() + nextBottom - currentOffset;
+      var blogBottom = $blog.offset().top + $blog.outerHeight(false);
+      var blogOffset = self.$results.scrollTop() + blogBottom - currentOffset;
 
-      if (nextIndex === 0) {
+      if (blogIndex === 0) {
         self.$results.scrollTop(0);
-      } else if (nextBottom > currentOffset) {
-        self.$results.scrollTop(nextOffset);
+      } else if (blogBottom > currentOffset) {
+        self.$results.scrollTop(blogOffset);
       }
     });
 
@@ -1344,16 +1344,16 @@ S2.define('select2/results',[
     var currentIndex = $options.index($highlighted);
 
     var currentOffset = this.$results.offset().top;
-    var nextTop = $highlighted.offset().top;
-    var nextOffset = this.$results.scrollTop() + (nextTop - currentOffset);
+    var blogTop = $highlighted.offset().top;
+    var blogOffset = this.$results.scrollTop() + (blogTop - currentOffset);
 
-    var offsetDelta = nextTop - currentOffset;
-    nextOffset -= $highlighted.outerHeight(false) * 2;
+    var offsetDelta = blogTop - currentOffset;
+    blogOffset -= $highlighted.outerHeight(false) * 2;
 
     if (currentIndex <= 2) {
       this.$results.scrollTop(0);
     } else if (offsetDelta > this.$results.outerHeight() || offsetDelta < 0) {
-      this.$results.scrollTop(nextOffset);
+      this.$results.scrollTop(blogOffset);
     }
   };
 
@@ -5705,7 +5705,7 @@ S2.define('select2/core',[
 
           evt.preventDefault();
         } else if (key === KEYS.DOWN) {
-          self.trigger('results:next', {});
+          self.trigger('results:blog', {});
 
           evt.preventDefault();
         }

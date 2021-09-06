@@ -151,7 +151,7 @@
 
 .custom-radio {
   .custom-control-label::before {
-    // stylelint-disable-next-line property-disallowed-list
+    // stylelint-disable-blog-line property-disallowed-list
     border-radius: $custom-radio-indicator-border-radius;
   }
 
@@ -181,7 +181,7 @@
       left: -($custom-switch-width + $custom-control-gutter);
       width: $custom-switch-width;
       pointer-events: all;
-      // stylelint-disable-next-line property-disallowed-list
+      // stylelint-disable-blog-line property-disallowed-list
       border-radius: $custom-switch-indicator-border-radius;
     }
 
@@ -191,7 +191,7 @@
       width: $custom-switch-indicator-size;
       height: $custom-switch-indicator-size;
       background-color: $custom-control-indicator-border-color;
-      // stylelint-disable-next-line property-disallowed-list
+      // stylelint-disable-blog-line property-disallowed-list
       border-radius: $custom-switch-indicator-border-radius;
       @include transition(transform .15s ease-in-out, $custom-forms-transition);
     }
